@@ -13,3 +13,21 @@ resources:
           notebook_task:
             notebook_path: ../src/notebook.ipynb
 
+       
+        - task_key: refresh_pipeline
+          depends_on:
+            - task_key: notebook_task
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.test_cicd_pipeline.id}
+        
+        - task_key: main_task
+          depends_on:
+            - task_key: refresh_pipeline
+          python_wheel_task:
+            package_name: test_cicd
+            entry_point: main
+          libraries:
+            # By default we just include the .whl file generated for the test_cicd package.
+            # See https://docs.databricks.com/dev-tools/bundles/library-dependencies.html
+            # for more information on how to add other libraries.
+            - whl: ../dist/*.whl
