@@ -1,0 +1,57 @@
+# 이 워크플로우는 지정된 번들을 "qa"라는 사전 프로덕션 타겟으로 검증, 배포 및 실행합니다.
+name: 'QA deployment'
+
+# 동일한 동시성 그룹을 사용하는 하나의 작업 또는 워크플로우만 한 번에 실행되도록 합니다.
+concurrency: 1
+
+# 리포지토리의 main 브랜치에 대해 Pull Request가 열리거나
+# 기존 Pull Request의 헤드 브랜치가 업데이트될 때마다 이 워크플로우를 트리거합니다.
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches:
+      - main
+
+jobs:
+  # 번들을 배포합니다.
+  # 번들 검증은 이 배포의 일부로 자동으로 수행됩니다.
+  # 검증이 실패하면 이 워크플로우가 실패합니다.
+  deploy:
+    name: Deploy to QA
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install Databricks CLI
+        run: |
+          pip install databricks-cli>=0.218.0
+      - name: Deploy bundle
+        env:
+          DATABRICKS_TOKEN: ${{ secrets.SP_TOKEN }}
+        run: |
+          databricks bundle deploy -t dev
+        working-directory: .
+  
+  # 배포된 번들에서 작업을 실행합니다.
+  run:
+    name: Run job
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install Databricks CLI
+        run: |
+          pip install databricks-cli>=0.218.0
+      - name: Run job
+        env:
+          DATABRICKS_TOKEN: ${{ secrets.SP_TOKEN }}
+        run: |
+          databricks bundle run -t dev my-test_cicd_01_job
+        working-directory: .
