@@ -1,0 +1,14 @@
+# The main pipeline for test_cicd_01
+resources:
+  pipelines:
+    test_cicd_01_pipeline:
+      name: test_cicd_01_pipeline
+      serverless: true
+      catalog: hurcy_test
+      target: test_cicd_01_${bundle.target}
+      libraries:
+        - notebook:
+            path: ../src/dlt_pipeline.ipynb
+
+      configuration:
+        bundle.sourcePath: ${workspace.file_path}/src

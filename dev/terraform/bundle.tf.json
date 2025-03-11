@@ -1,0 +1,69 @@
+{
+  "terraform": {
+    "required_providers": {
+      "databricks": {
+        "source": "databricks/databricks",
+        "version": "1.62.0"
+      }
+    }
+  },
+  "provider": {
+    "databricks": {}
+  },
+  "resource": {
+    "databricks_job": {
+      "test_cicd_01_job": {
+        "deployment": {
+          "kind": "BUNDLE",
+          "metadata_file_path": "/Workspace/Users/cinyoung.hur@databricks.com/.bundle/test_cicd_01/dev/state/metadata.json"
+        },
+        "edit_mode": "UI_LOCKED",
+        "email_notifications": {
+          "on_failure": [
+            "cinyoung.hur@databricks.com"
+          ]
+        },
+        "format": "MULTI_TASK",
+        "max_concurrent_runs": 4,
+        "name": "[dev cinyoung_hur] test_cicd_01_job",
+        "queue": {
+          "enabled": true
+        },
+        "tags": {
+          "dev": "cinyoung_hur"
+        },
+        "task": [
+          {
+            "notebook_task": {
+              "notebook_path": "/Workspace/Users/cinyoung.hur@databricks.com/.bundle/test_cicd_01/dev/files/src/notebook"
+            },
+            "task_key": "notebook_task"
+          }
+        ]
+      }
+    },
+    "databricks_pipeline": {
+      "test_cicd_01_pipeline": {
+        "catalog": "hurcy_test",
+        "configuration": {
+          "bundle.sourcePath": "/Workspace/Users/cinyoung.hur@databricks.com/.bundle/test_cicd_01/dev/files/src"
+        },
+        "deployment": {
+          "kind": "BUNDLE",
+          "metadata_file_path": "/Workspace/Users/cinyoung.hur@databricks.com/.bundle/test_cicd_01/dev/state/metadata.json"
+        },
+        "development": true,
+        "library": [
+          {
+            "notebook": {
+              "path": "/Workspace/Users/cinyoung.hur@databricks.com/.bundle/test_cicd_01/dev/files/src/dlt_pipeline"
+            }
+          }
+        ],
+        "name": "[dev cinyoung_hur] test_cicd_01_pipeline",
+        "serverless": true,
+        "target": "test_cicd_01_dev"
+      }
+    }
+  }
+}
