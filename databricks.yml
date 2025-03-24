@@ -6,6 +6,25 @@ bundle:
 include:
   - resources/*.yml
 
+
+variables:
+  name_prefix: 
+    description: prefix per target mode
+    default: '' 
+  source:
+    description: source
+    default: GIT
+  git_url:
+    description: source
+    default: https://github.com/hurcy/test_cicd_01.git
+  git_provider:
+    description: source
+    default: gitHub
+  git_branch:
+    description: source
+    default: main
+
+
 targets:
   dev:
     # The default target uses 'mode: development' to create a development copy.
@@ -15,16 +34,16 @@ targets:
     mode: development
     default: true
     workspace:
-      host: https://dbc-e3ed40bd-75c5.cloud.databricks.com
+      host: https://one-env-hurcy.cloud.databricks.com
 
   prod:
     mode: production
     workspace:
-      host: https://dbc-e3ed40bd-75c5.cloud.databricks.com
+      host: https://one-env-hurcy.cloud.databricks.com
       # We explicitly specify /Workspace/Users/cinyoung.hur@databricks.com to make sure we only have a single copy.
-      root_path: /Workspace/Users/cinyoung.hur@databricks.com/.bundle/${bundle.name}/${bundle.target}
+      root_path: /Workspace/Users/${workspace.current_user.userName}/.bundle/${bundle.name}/${bundle.target}
     permissions:
-      - user_name: cinyoung.hur@databricks.com
+      - user_name: ${workspace.current_user.userName}
         level: CAN_MANAGE
     run_as:
-      user_name: cinyoung.hur@databricks.com
+      user_name: ${workspace.current_user.userName}
