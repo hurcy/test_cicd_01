@@ -6,7 +6,7 @@ resources:
         - task_key: job_from_dbx_ui
           email_notifications: {}
           notebook_task:
-            notebook_path: ../src/notebook.py
+            notebook_path: ../src/notebook.ipynb
             source: WORKSPACE
           run_if: ALL_SUCCESS
           webhook_notifications: {}
