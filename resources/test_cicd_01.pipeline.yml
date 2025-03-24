@@ -4,16 +4,16 @@ resources:
     test_cicd_01_pipeline:
       name: test_cicd_01_pipeline
       serverless: true
-      catalog: hurcy_test
+      catalog: main
       target: test_cicd_01_${bundle.target}
       libraries:
         - notebook:
-            path: src/dlt_pipeline
-            source: GIT
-      git_source:
-        git_url: ${var.git_url}
-        git_provider: ${var.git_provider}
-        git_branch: ${var.git_branch}
+            path: ../src/dlt_pipeline.ipynb
+            # source: GIT
+      # git_source:
+      #   git_url: ${var.git_url}
+      #   git_provider: ${var.git_provider}
+      #   git_branch: ${var.git_branch}
 
       configuration:
         bundle.sourcePath: ${workspace.file_path}/src

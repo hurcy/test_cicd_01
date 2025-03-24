@@ -32,6 +32,11 @@ targets:
     # - Any job schedules and triggers are paused by default.
     # See also https://docs.databricks.com/dev-tools/bundles/deployment-modes.html.
     mode: development
+    presets:
+      tags:
+        dept: comm
+        dev: DEV
+        system: pii
     default: true
     workspace:
       host: https://one-env-hurcy.cloud.databricks.com

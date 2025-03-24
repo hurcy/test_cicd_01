@@ -18,7 +18,7 @@ resources:
           depends_on:
             - task_key: notebook_task
           pipeline_task:
-            pipeline_id: ${resources.pipelines.test_cicd_pipeline.id}
+            pipeline_id: ${resources.pipelines.test_cicd_01_pipeline.id}
         
       git_source:
         git_url: ${var.git_url}
