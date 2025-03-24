@@ -10,7 +10,7 @@ resources:
 
       tasks:
         - task_key: pytest_task
-          pytest_task:
+          notebook_task:
             notebook_path: src/pytest
             source: GIT
         
