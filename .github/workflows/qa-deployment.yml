@@ -57,5 +57,5 @@ jobs:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
         run: |
-          databricks bundle run -t dev test_cicd_01_job
+          databricks bundle run -t dev pytest_job
         working-directory: .

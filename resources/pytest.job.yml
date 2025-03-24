@@ -10,7 +10,7 @@ resources:
 
       tasks:
         - task_key: pytest_task
-          pytest_task:
+          notebook_task:
             notebook_path: src/pytest
             source: GIT
         
@@ -20,3 +20,6 @@ resources:
         git_branch: ${var.git_branch}
       queue:
         enabled: true
+
+      tags:
+        aa: ${workspace.file_path}
