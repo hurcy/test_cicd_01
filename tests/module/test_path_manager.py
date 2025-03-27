@@ -1,4 +1,4 @@
-from src.module.path_manager import PathResolver
+from module.path_manager import PathResolver
 
 def test_path_resolver():
     paths = PathResolver()

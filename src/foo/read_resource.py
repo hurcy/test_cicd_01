@@ -1,4 +1,4 @@
-from src.module.path_manager import PathResolver
+from module.path_manager import PathResolver
 
 def process_data():
     paths = PathResolver()

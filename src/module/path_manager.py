@@ -1,18 +1,69 @@
+import os
 from pathlib import Path
+from pyspark.dbutils import DBUtils
+from pyspark.sql import SparkSession
+
 
 class PathResolver:
     _instance = None
-    
+
     def __new__(cls):
+        """
+        Singleton pattern implementation for PathResolver class
+        """
         if not cls._instance:
             cls._instance = super().__new__(cls)
             cls._root = Path(__file__).parent.parent.parent
         return cls._instance
-    
+
     @property
     def resources(self):
-        return self._root / 'resources'
-    
+        """
+        Define properties to resolve paths for resources, config, and tests directories
+        """
+
+        return self._root / "resources"
+
+    def _get_system_root(self):
+        """
+        Method to get the system root directory from the notebook path
+        """
+        spark = SparkSession.builder.getOrCreate()
+        dbutils = DBUtils(spark)
+        notebook_path = (
+            dbutils.notebook.entry_point.getDbutils()
+            .notebook()
+            .getContext()
+            .notebookPath()
+            .get()
+        )
+        system_root = "/Workspace" + os.path.dirname(notebook_path).replace("dmp/src", "dmp/resources")
+        return system_root
+
+    @property
+    def config(self):
+        """
+        Property to resolve the path for the config directory
+        """
+        return self._root / self._get_system_root() / "config"
+
+    @property
+    def job(self):
+        """
+        Property to resolve the path for the job directory
+        """
+        return self._root / self._get_system_root() / "job"
+
+    @property
+    def pipeline(self):
+        """
+        Property to resolve the path for the pipeline directory
+        """
+        return self._root / self._get_system_root() / "pipeline"
+
     @property
     def tests(self):
-        return self._root / 'tests'
+        """
+        Property to resolve the path for the tests directory
+        """
+        return self._root / "tests"
