@@ -27,7 +27,7 @@ jobs:
         run: databricks current-user me
 
       - name: Test Databricks directory
-        run: databricks fs ls /Workspace/Users/cinyoung.hur@databricks.com
+        run: databricks fs ls .
 
       - name: Clone or update git repository
         run: |
