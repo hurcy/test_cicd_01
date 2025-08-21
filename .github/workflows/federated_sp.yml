@@ -45,4 +45,6 @@ jobs:
       #     fi
       - name: Update git folder
         # Set your workspace path and branch name here
-        run: databricks repos update $REPO_PATH --branch main
+        run: |
+          REPO_PATH="/Workspace/Users/cinyoung.hur@databricks.com/test_cicd_01"
+          databricks repos update "$REPO_PATH" --branch main
