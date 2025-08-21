@@ -28,15 +28,15 @@ jobs:
 
       - name: Clone or update git repository
         run: |
-          REPO_PARENT_PATH="/Workspace/Users/cinyoung.hur@databricks.com"
+          REPO_PATH="/Workspace/Users/cinyoung.hur@databricks.com/test_cicd_01"
           REPO_URL="https://github.com/${{ github.repository }}"
           
           # Try to update existing repo first
-          if databricks repos update "$REPO_PARENT_PATH" --branch main 2>/dev/null; then
+          if databricks repos update "$REPO_PATH" --branch main 2>/dev/null; then
             echo "✅ Repository updated successfully"
           else
             echo "Repository doesn't exist, attempting to clone..."
             # Clone the repository if it doesn't exist
-            databricks repos create "$REPO_URL" gitHub --path "$REPO_PARENT_PATH"
+            databricks repos create "$REPO_URL" gitHub --path "$REPO_PATH"
             echo "✅ Repository cloned successfully"
           fi
