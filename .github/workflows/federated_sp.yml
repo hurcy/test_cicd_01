@@ -23,8 +23,8 @@ jobs:
       - name: Install Databricks CLI
         uses: databricks/setup-cli@main
 
-      - name: Test Databricks authentication
-        run: databricks current-user me
+      # - name: Test Databricks authentication
+      #   run: databricks current-user me
 
       - name: Debug - List existing repos
         run: databricks repos list
