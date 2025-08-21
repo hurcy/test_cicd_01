@@ -26,6 +26,9 @@ jobs:
       - name: Test Databricks authentication
         run: databricks current-user me
 
+      - name: Test Databricks directory
+        run: databricks fs ls /Workspace/Users/cinyoung.hur@databricks.com
+
       - name: Clone or update git repository
         run: |
           REPO_PATH="/Workspace/Users/cinyoung.hur@databricks.com/test_cicd_01"
