@@ -43,3 +43,6 @@ jobs:
             databricks repos create --url "$REPO_URL" --path "$REPO_PATH"
             echo "✅ Repository cloned successfully"
           fi
+      - name: Update git folder
+        # Set your workspace path and branch name here
+        run: databricks repos update $REPO_PATH --branch main
