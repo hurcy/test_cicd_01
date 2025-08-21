@@ -27,7 +27,7 @@ jobs:
         run: databricks current-user me
 
       - name: Test Databricks directory
-        run: databricks fs ls .
+        run: pwd
 
       - name: Clone or update git repository
         run: |
