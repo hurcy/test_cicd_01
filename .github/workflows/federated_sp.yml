@@ -40,6 +40,6 @@ jobs:
           else
             echo "Repository doesn't exist, attempting to clone..."
             # Clone the repository if it doesn't exist
-            databricks repos create "$REPO_URL" gitHub --path "$REPO_PATH"
+            databricks repos create --url "$REPO_URL" --path "$REPO_PATH"
             echo "✅ Repository cloned successfully"
           fi
