@@ -16,15 +16,25 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: 'Update git folder'
-    environment: Prod
+    environment: prod
     env:
       DATABRICKS_AUTH_TYPE: github-oidc
       DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST }}
       DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: databricks/setup-cli@main
-      - name: Update git folder
-        # Set your workspace path and branch name here
-        run: databricks repos update /Workspace/Users/cinyoung.hur@databricks.com/test_cicd_01 --branch main
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Databricks CLI
+        uses: databricks/setup-cli@main
+
+      - name: Run Databricks CLI commands
+        run: databricks current-user me
+
+    # steps:
+    #   - uses: actions/checkout@v3
+    #   - uses: databricks/setup-cli@main
+    #   - name: Update git folder
+    #     # Set your workspace path and branch name here
+    #     run: databricks repos update /Workspace/Users/cinyoung.hur@databricks.com/test_cicd_01 --branch main
