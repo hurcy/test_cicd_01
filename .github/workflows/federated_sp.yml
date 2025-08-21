@@ -7,12 +7,13 @@ permissions:
   contents: read
 
 jobs:
-  my_script_using_wif:
+  deploy:
     runs-on: ubuntu-latest
+    name: 'Update git folder'
     environment: prod
     env:
       DATABRICKS_AUTH_TYPE: github-oidc
-      DATABRICKS_HOST: https://adb-2531935507212601.1.azuredatabricks.net/
+      DATABRICKS_HOST: https://adb-2531935507212601.1.azuredatabricks.net
       DATABRICKS_CLIENT_ID: b7d35f20-a3a7-4a44-a515-9c81d999d362
 
     steps:
@@ -22,46 +23,8 @@ jobs:
       - name: Install Databricks CLI
         uses: databricks/setup-cli@main
 
+      - name: Run Databricks CLI commands (optional)
+        run: databricks current-user me
+
       - name: Run Databricks CLI commands
         run: databricks repos update /Workspace/Users/cinyoung.hur@databricks.com/test_cicd_01 --branch main
-
-# name: Sync Git Folder
-
-# concurrency: prod_environment
-
-# on:
-#   push:
-#     branches:
-#       # Set your base branch name here
-#       - main
-
-# permissions:
-#   id-token: write
-#   contents: read
-
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-latest
-#     name: 'Update git folder'
-#     environment: prod
-#     env:
-#       DATABRICKS_AUTH_TYPE: github-oidc
-#       DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST }}
-#       DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
-
-#     steps:
-#       - name: Checkout repository
-#         uses: actions/checkout@v4
-
-#       - name: Install Databricks CLI
-#         uses: databricks/setup-cli@main
-
-#       - name: Run Databricks CLI commands
-#         run: databricks current-user me
-
-    # steps:
-    #   - uses: actions/checkout@v3
-    #   - uses: databricks/setup-cli@main
-    #   - name: Update git folder
-    #     # Set your workspace path and branch name here
-    #     run: databricks repos update /Workspace/Users/cinyoung.hur@databricks.com/test_cicd_01 --branch main
