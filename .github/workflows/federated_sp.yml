@@ -26,25 +26,6 @@ jobs:
       - name: Test Databricks authentication
         run: databricks current-user me
 
-      # - name: Test Databricks directory
-      #   run: pwd
-
-      # - name: Clone or update git repository
-      #   run: |
-      #     REPO_PATH="/Workspace/Users/cinyoung.hur@databricks.com/test_cicd_01"
-      #     REPO_URL="https://github.com/${{ github.repository }}"
-          
-      #     # Try to update existing repo first
-      #     if databricks repos update "$REPO_PATH" --branch main 2>/dev/null; then
-      #       echo "✅ Repository updated successfully"
-      #     else
-      #       echo "Repository doesn't exist, attempting to clone..."
-      #       # Clone the repository if it doesn't exist
-      #       databricks repos create "$REPO_URL" gitHub --path "$REPO_PATH"
-      #       echo "✅ Repository cloned successfully"
-      #     fi
       - name: Update git folder
         # Set your workspace path and branch name here
-        run: |
-          REPO_PATH="/Workspace/Users/cinyoung.hur@databricks.com/test_cicd_01"
-          databricks repos update "$REPO_PATH" --branch main
+        run: databricks repos update /Workspace/Users/cinyoung.hur@databricks.com/test_cicd_01 --branch main
