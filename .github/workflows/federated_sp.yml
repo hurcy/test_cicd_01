@@ -30,8 +30,8 @@ jobs:
         run: databricks repos list
 
       - name: Debug - Check workspace path
-        run: databricks workspace list /Workspace/Users/cinyoung.hur@databricks.com || echo "Path not accessible"
+        run: databricks workspace list /Workspace/Users/b7d35f20-a3a7-4a44-a515-9c81d999d362 || echo "Path not accessible"
 
       - name: Update git folder
         # Set your workspace path and branch name here
-        run: databricks repos update /Workspace/Users/cinyoung.hur@databricks.com/test_cicd_01 --branch main
+        run: databricks repos update /Workspace/Users/b7d35f20-a3a7-4a44-a515-9c81d999d362/test_cicd_01 --branch main
