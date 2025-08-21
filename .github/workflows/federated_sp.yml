@@ -23,8 +23,20 @@ jobs:
       - name: Install Databricks CLI
         uses: databricks/setup-cli@main
 
-      - name: Run Databricks CLI commands (optional)
+      - name: Test Databricks authentication
         run: databricks current-user me
 
-      - name: Run Databricks CLI commands
-        run: databricks repos update /Workspace/Users/cinyoung.hur@databricks.com/test_cicd_01 --branch main
+      - name: Clone or update git repository
+        run: |
+          REPO_PATH="/Workspace/Users/cinyoung.hur@databricks.com/test_cicd_01"
+          REPO_URL="https://github.com/${{ github.repository }}"
+          
+          # Try to update existing repo first
+          if databricks repos update "$REPO_PATH" --branch main 2>/dev/null; then
+            echo "✅ Repository updated successfully"
+          else
+            echo "Repository doesn't exist, attempting to clone..."
+            # Clone the repository if it doesn't exist
+            databricks repos create --url "$REPO_URL" --path "$REPO_PATH"
+            echo "✅ Repository cloned successfully"
+          fi
