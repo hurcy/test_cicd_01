@@ -4,25 +4,11 @@ resources:
     test_cicd_01_job:
       name: test_cicd_01_job
 
-      email_notifications:
-        on_failure:
-          - cinyoung.hur@databricks.com
-
       tasks:
         - task_key: notebook_task
           notebook_task:
-            notebook_path: src/notebook
-            source: GIT
-       
-        - task_key: refresh_pipeline
-          depends_on:
-            - task_key: notebook_task
-          pipeline_task:
-            pipeline_id: ${resources.pipelines.test_cicd_01_pipeline.id}
+            notebook_path: ../src/main.ipynb
+            source: WORKSPACE
         
-      git_source:
-        git_url: ${var.git_url}
-        git_provider: ${var.git_provider}
-        git_branch: ${var.git_branch}
       queue:
         enabled: true

@@ -1,4 +1,4 @@
-from foo.read_resource import process_data
+from foo.bar import parse_bar
 
 def test_call_read_resource_function():
-    assert process_data() == 'test'
+    assert parse_bar() == 'test'
