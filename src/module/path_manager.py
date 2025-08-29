@@ -6,6 +6,7 @@ from pyspark.sql import SparkSession
 
 class PathResolver:
     _instance = None
+    _bundle_name = 'test_cicd_01' # change to bundle name
 
     def __new__(cls):
         """
@@ -37,7 +38,7 @@ class PathResolver:
             .notebookPath()
             .get()
         )
-        system_root = "/Workspace" + os.path.dirname(notebook_path).replace("dmp/src", "dmp/resources")
+        system_root = "/Workspace" + os.path.dirname(notebook_path).replace(f"{self._bundle_name}/src", f"{self._bundle_name}/resources")
         return system_root
 
     @property
