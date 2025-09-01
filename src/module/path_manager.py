@@ -48,7 +48,7 @@ class PathResolver:
         """
         Property to resolve the path for the config directory
         """
-        return self._root / self._get_system_root() / "config"
+        return self._root / "config"
 
     @property
     def tests(self):

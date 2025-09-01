@@ -1,4 +1,7 @@
 from foo.bar import parse_bar
 
 def test_call_read_resource_function():
-    assert parse_bar() == 'test'
+    result = parse_bar()
+    assert isinstance(result, dict)
+    assert 'bar_test' in result
+    assert result['bar_test']['foo_test'] == 'zoo'

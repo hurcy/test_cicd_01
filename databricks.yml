@@ -7,24 +7,6 @@ include:
   - resources/*.yml
 
 
-variables:
-  name_prefix: 
-    description: prefix per target mode
-    default: '' 
-  source:
-    description: source
-    default: GIT
-  git_url:
-    description: source
-    default: https://github.com/hurcy/test_cicd_01.git
-  git_provider:
-    description: source
-    default: gitHub
-  git_branch:
-    description: source
-    default: main
-
-
 targets:
   dev:
     # The default target uses 'mode: development' to create a development copy.
