@@ -6,7 +6,7 @@ from pyspark.sql import SparkSession
 
 class PathResolver:
     _instance = None
-    _bundle_name = 'test_cicd_01' # change to bundle name
+    _bundle_name = "test_cicd_01"  # change to bundle name
 
     def __new__(cls):
         """
@@ -16,14 +16,6 @@ class PathResolver:
             cls._instance = super().__new__(cls)
             cls._root = Path(__file__).parent.parent.parent
         return cls._instance
-
-    @property
-    def resources(self):
-        """
-        Define properties to resolve paths for resources, config, and tests directories
-        """
-
-        return self._root / "resources"
 
     def _get_system_root(self):
         """
@@ -38,8 +30,18 @@ class PathResolver:
             .notebookPath()
             .get()
         )
-        system_root = "/Workspace" + os.path.dirname(notebook_path).replace(f"{self._bundle_name}/src", f"{self._bundle_name}/resources")
+        system_root = "/Workspace" + os.path.dirname(notebook_path).replace(
+            f"{self._bundle_name}/src", f"{self._bundle_name}/resources"
+        )
         return system_root
+
+    @property
+    def resources(self):
+        """
+        Define properties to resolve paths for resources, config, and tests directories
+        """
+
+        return self._root / "resources"
 
     @property
     def config(self):
@@ -47,20 +49,6 @@ class PathResolver:
         Property to resolve the path for the config directory
         """
         return self._root / self._get_system_root() / "config"
-
-    @property
-    def job(self):
-        """
-        Property to resolve the path for the job directory
-        """
-        return self._root / self._get_system_root() / "job"
-
-    @property
-    def pipeline(self):
-        """
-        Property to resolve the path for the pipeline directory
-        """
-        return self._root / self._get_system_root() / "pipeline"
 
     @property
     def tests(self):
