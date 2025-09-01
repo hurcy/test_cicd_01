@@ -46,25 +46,11 @@ print(paths.config)     # 설정 디렉토리 경로
 print(paths.tests)      # 테스트 디렉토리 경로
 ```
 
-### 2. Spark 애플리케이션
-- **NYC Taxi 데이터** 처리 예제
-- Databricks Connect 지원
-- 로컬 및 클러스터 환경 모두 지원
-
-```python
-from test_cicd_01.main import get_taxis, get_spark
-
-# Spark 세션 생성 및 데이터 조회
-spark = get_spark()
-taxis_df = get_taxis(spark)
-taxis_df.show(5)
-```
-
-### 3. 노트북 경로 설정
+### 2. 노트북 경로 설정
 - `set_notebook_paths.ipynb`: Databricks 노트북에서 Python 모듈을 import할 수 있도록 sys.path 자동 설정
 - Bundle 이름 기반 동적 경로 구성
 
-### 4. 리소스 파일 관리
+### 3. 리소스 파일 관리
 - YAML 설정 파일 읽기 예제
 - 경로 관리자를 통한 안전한 파일 접근
 

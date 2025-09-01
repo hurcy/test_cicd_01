@@ -46,25 +46,11 @@ print(paths.config)     # Configuration directory path
 print(paths.tests)      # Tests directory path
 ```
 
-### 2. Spark Application
-- **NYC Taxi data** processing example
-- Databricks Connect support
-- Compatible with both local and cluster environments
-
-```python
-from test_cicd_01.main import get_taxis, get_spark
-
-# Create Spark session and query data
-spark = get_spark()
-taxis_df = get_taxis(spark)
-taxis_df.show(5)
-```
-
-### 3. Notebook Path Configuration
+### 2. Notebook Path Configuration
 - `set_notebook_paths.ipynb`: Automatically configures sys.path for importing Python modules in Databricks notebooks
 - Dynamic path configuration based on Bundle name
 
-### 4. Resource File Management
+### 3. Resource File Management
 - YAML configuration file reading example
 - Safe file access through path manager
 
